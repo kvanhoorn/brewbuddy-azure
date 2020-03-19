@@ -43,3 +43,9 @@ EOT
 vncserver -httpPort 5901 -localhost no -geometry 1024x768
 # Prompted for access password, choose no for view-only password
 ```
+
+## Application
+* Open application from menu (Utilities)
+* When prompted for 'brouwinstallatie', press cancel
+* Go to settings (Instellingen) -> Databank locatie
+* Browse for /root/Dropbox/BrouwHulp
