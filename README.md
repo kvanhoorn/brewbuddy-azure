@@ -1,4 +1,4 @@
-# brewbuddy-azure
+# Brewbuddy Azure
 Create a BrewBuddy (BrouwHulp) Azure Debian VM with VNC
 
 ## Infra
@@ -105,4 +105,4 @@ And reboot!
 * Open application from menu (Utilities)
 * When prompted for 'brouwinstallatie', press cancel
 * Go to settings (Instellingen) -> Databank locatie
-* Browse for /root/Dropbox/BrouwHulp
+* Browse for /home/brewer/Dropbox/BrouwHulp
