@@ -32,6 +32,8 @@ wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 ```
 
 ## Configuration (no root)
+
+### vnc configuration
 ```
 cd
 mkdir .vnc
@@ -40,14 +42,21 @@ cat <<EOT >> .vnc/xstartup
 xrdb $HOME/.Xresources
 startkde &
 EOT
+```
 
-# start vncserver once to create password
-vncserver -httpPort 5901 -localhost no -geometry 1024x768
+### vnc password
+```
+vncpassword
 # Prompted for access password, choose no for view-only password
-vncserver -kill :1
+```
 
-# create systemd loaders
+### create config folder
+```
 mkdir -p .config/systemd/user/
+```
+
+### create systemd loader dropbox
+```
 cat <<EOT >> .config/systemd/user/dropbox.service
 [Unit]
 Description=Dropbox as a user service
@@ -62,7 +71,10 @@ RestartSec=1
 [Install]
 WantedBy=default.target
 EOT
+```
 
+### create systemd loader vncserver
+```
 cat <<EOT >> .config/systemd/user/vncserver.service
 [Unit]
 Description=Remote desktop service (VNC)
@@ -77,15 +89,17 @@ ExecStop=/usr/bin/vncserver -kill :1
 [Install]
 WantedBy=default.target
 EOT
+```
 
+### final configuration systemd
+```
 # configure and enable systemd
 sudo loginctl enable-linger [username]
 systemctl --user enable vncserver
 systemctl --user enable dropbox
-
-# and reboot
-sudo reboot
 ```
+
+And reboot!
 
 ## Application
 * Open application from menu (Utilities)
