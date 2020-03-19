@@ -112,4 +112,5 @@ And reboot!
 
 ## Tips
 * Disable the screensaver (System Settings -> Desktop Behavior -> Screen Locking -> Disable 'Lock screen')
+* Add BrewBuddy to autostart (System Settings -> Startup and Shutdown -> Autostart -> Add Program)
 * Hide lower panel (Right click panel -> Panel Options -> Configure Panel -> Prefs icon -> Auto Hide)
