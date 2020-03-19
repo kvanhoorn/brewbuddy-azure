@@ -10,6 +10,8 @@ Create a BrewBuddy (BrouwHulp) Azure Debian VM with VNC
 
 ```
 sudo -i
+# set timezone to Europe/Amsterdam
+dpkg-reconfigure tzdata
 apt-get update
 apt-get upgrade
 apt install aptitude tasksel
