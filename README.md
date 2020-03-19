@@ -102,6 +102,7 @@ systemctl --user enable dropbox
 And reboot!
 
 ## Application
+* Open VNC session to machine
 * Open application from menu (Utilities)
 * When prompted for 'brouwinstallatie', press cancel
 * Go to settings (Instellingen) -> Databank locatie
