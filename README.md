@@ -49,3 +49,30 @@ vncserver -httpPort 5901 -localhost no -geometry 1024x768
 * When prompted for 'brouwinstallatie', press cancel
 * Go to settings (Instellingen) -> Databank locatie
 * Browse for /root/Dropbox/BrouwHulp
+
+## Finetuning
+```
+cat <<EOT >> /etc/init.d/vncserver
+#!/bin/bash
+#/etc/init.d/vncserver
+#
+
+case "$1" in
+  start)
+    echo "Starting VNC"
+    vncserver -httpPort 5901 -localhost no -geometry 1024x768
+    ;;
+  stop)
+    echo "Stopping VNC"
+    vncserver -kill :1
+    ;;
+  *)
+    echo "Usage: /etc/init.d/vncserver {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
+EOT
+chmod 755 /etc/init.d/vncserver
+```
