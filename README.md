@@ -107,3 +107,7 @@ And reboot!
 * When prompted for 'brouwinstallatie', press cancel
 * Go to settings (Instellingen) -> Databank locatie
 * Browse for /home/brewer/Dropbox/BrouwHulp
+
+## Tips
+* Disable the screensaver (System Settings -> Desktop Behavior -> Screen Locking -> Disable 'Lock screen')
+* Hide lower panel (Right click panel -> Panel Options -> Configure Panel -> Prefs icon -> Auto Hide)
