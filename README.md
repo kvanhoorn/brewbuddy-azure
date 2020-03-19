@@ -17,17 +17,21 @@ apt install aptitude tasksel
 aptitude install ~t^desktop$ ~t^kde-desktop$
 ```
 
-## Installation
+## Installation (root)
 ```
 apt-get install libfann2 libcanberra-gtk-module vnc4server
 curl -LO https://github.com/BrewBuddyOrg/BrewBuddy/releases/download/5.4-ubuntu/brewbuddy-5.4_amd64.deb
 dpkg -i brewbuddy-5.4_amd64.deb
+```
+
+## Installation (no root)
+```
 wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 ./.dropbox-dist/dropboxd &
 # Visit url with your dropbox account
 ```
 
-## Configuration
+## Configuration (no root)
 ```
 cd
 mkdir .vnc
@@ -36,12 +40,51 @@ cat <<EOT >> .vnc/xstartup
 xrdb $HOME/.Xresources
 startkde &
 EOT
-```
 
-## Running
-```
+# start vncserver once to create password
 vncserver -httpPort 5901 -localhost no -geometry 1024x768
 # Prompted for access password, choose no for view-only password
+vncserver -kill :1
+
+# create systemd loaders
+mkdir -p .config/systemd/user/
+cat <<EOT >> .config/systemd/user/dropbox.service
+[Unit]
+Description=Dropbox as a user service
+After=local-fs.target network-target
+
+[Service]
+Type=simple
+ExecStart=%h/.dropbox-dist/dropboxd
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=default.target
+EOT
+
+cat <<EOT >> .config/systemd/user/vncserver.service
+[Unit]
+Description=Remote desktop service (VNC)
+After=syslog.target network.target
+
+[Service]
+Type=forking
+ExecStartPre=/bin/sh -c '/usr/bin/vncserver -kill :1 > /dev/null 2>&1 || :'
+ExecStart=/usr/bin/vncserver -httpPort 5901 -localhost no -geometry 1024x768 :1
+ExecStop=/usr/bin/vncserver -kill :1
+
+[Install]
+WantedBy=default.target
+EOT
+
+# configure and enable systemd
+sudo loginctl enable-linger [username]
+systemctl --user enable vncserver
+systemctl --user enable dropbox
+
+# and reboot
+sudo reboot
 ```
 
 ## Application
@@ -49,30 +92,3 @@ vncserver -httpPort 5901 -localhost no -geometry 1024x768
 * When prompted for 'brouwinstallatie', press cancel
 * Go to settings (Instellingen) -> Databank locatie
 * Browse for /root/Dropbox/BrouwHulp
-
-## Finetuning
-```
-cat <<EOT >> /etc/init.d/vncserver
-#!/bin/bash
-#/etc/init.d/vncserver
-#
-
-case "$1" in
-  start)
-    echo "Starting VNC"
-    vncserver -httpPort 5901 -localhost no -geometry 1024x768
-    ;;
-  stop)
-    echo "Stopping VNC"
-    vncserver -kill :1
-    ;;
-  *)
-    echo "Usage: /etc/init.d/vncserver {start|stop}"
-    exit 1
-    ;;
-esac
-
-exit 0
-EOT
-chmod 755 /etc/init.d/vncserver
-```
