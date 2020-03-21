@@ -1,5 +1,5 @@
 # Brewbuddy Azure
-Create a BrewBuddy (BrouwHulp) Azure Debian VM with VNC
+Create a BrewBuddy (BrouwHulp) Azure Debian VM with VNC and Dropbox
 
 ## Infra
 * Deploy Debian 10 VM with 2vcpu, 16GiB MEM and a Premium SSD of 64GB
