@@ -44,6 +44,7 @@ cat <<EOT >> .vnc/xstartup
 xrdb $HOME/.Xresources
 startkde &
 EOT
+chmod 775 .vnc/xstartup
 ```
 
 ### vnc password
