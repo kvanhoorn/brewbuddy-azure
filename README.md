@@ -49,7 +49,7 @@ chmod 775 .vnc/xstartup
 
 ### vnc password
 ```
-vncpassword
+vncpasswd
 # Prompted for access password, choose no for view-only password
 ```
 
