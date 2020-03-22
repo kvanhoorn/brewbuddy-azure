@@ -21,7 +21,7 @@ aptitude install ~t^desktop$ ~t^kde-desktop$
 
 ## Installation (root)
 ```
-apt-get install libfann2 libcanberra-gtk-module vnc4server
+apt-get install libfann2 libopenal1 libcanberra-gtk-module vnc4server
 curl -LO https://github.com/BrewBuddyOrg/BrewBuddy/releases/download/5.4-ubuntu/brewbuddy-5.4_amd64.deb
 dpkg -i brewbuddy-5.4_amd64.deb
 ```
